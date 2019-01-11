@@ -8,6 +8,6 @@ REMOVED:
 
 FIXED:
 
-## 1.0.0 - unreleased
+## 1.0.0 - 2019-01-11
 
 - Initial version
