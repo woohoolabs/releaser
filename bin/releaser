@@ -76,7 +76,7 @@ CHECKLIST:
         exit 1
     fi
 
-    git push --tags
+    git push --follow-tags
 }
 
 case $1 in
