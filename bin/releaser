@@ -57,6 +57,7 @@ function command_release {
 CHECKLIST:
     - Update read me
     - Update change log
+    - Run the tests
     - Check integration statuses
 "
 
