@@ -1,4 +1,14 @@
-## 1.1.0 - unreleased
+## 1.2.0 - unreleased
+
+ADDED:
+
+CHANGED:
+
+REMOVED:
+
+FIXED:
+
+## 1.1.0 - 2019-01-11
 
 ADDED:
 
@@ -7,10 +17,6 @@ ADDED:
 CHANGED:
 
 - Commit message is automatically added to the tag
-
-REMOVED:
-
-FIXED:
 
 ## 1.0.0 - 2019-01-11
 
