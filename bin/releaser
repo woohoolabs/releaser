@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -e
+
+echo "Last tag name: `git describe --abbrev=0 --tags`"
+
+read -p "Which version do you wish to release? " -r
+echo
+VERSION=$REPLY
+
+echo "CHECKLIST:"
+echo "- Check integration statuses"
+echo "- Update read me"
+echo
+
+read -p "Do you wish to create the tag '$VERSION' (y/n)? " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    exit 1
+fi
+
+git tag -s $1
+
+read -p "Do you wish to publish the tag '$1' (y/n)? " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    exit 1
+fi
+
+git push --tags
