@@ -82,7 +82,7 @@ CHECKLIST:
     echo -e "\nVALIDATING..."
     validate_change_log "$version"
 
-    git tag -s "$version"
+    git tag -s -m "Release version $version" "$version"
 
     echo -e "\nSUCCESSFULLY CREATED TAG: $version.\n";
 

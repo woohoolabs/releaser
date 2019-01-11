@@ -6,6 +6,8 @@ ADDED:
 
 CHANGED:
 
+- Commit message is automatically added to the tag
+
 REMOVED:
 
 FIXED:
