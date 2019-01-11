@@ -1,31 +1,87 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Last tag name: `git describe --abbrev=0 --tags`"
+RELEASER_VERSION=1.0.0
+RELEASER_ROOT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+SEMVER_REGEX="^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(\\-[0-9A-Za-z-]+(\\.[0-9A-Za-z-]+)*)?(\\+[0-9A-Za-z-]+(\\.[0-9A-Za-z-]+)*)?$"
 
-read -p "Which version do you wish to release? " -r
-echo
-VERSION=$REPLY
-
-echo "CHECKLIST:"
-echo "- Check integration statuses"
-echo "- Update read me"
-echo
-
-read -p "Do you wish to create the tag '$VERSION' (y/n)? " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
+function error {
+    echo -e "$1" >&2
     exit 1
-fi
+}
 
-git tag -s $1
+function print_last_version {
+    echo -e "Last tag: `git describe --abbrev=0 --tags`"
+}
 
-read -p "Do you wish to publish the tag '$1' (y/n)? " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
-    exit 1
-fi
+function validate_version {
+    local version=$1
+    if [[ "$version" =~ $SEMVER_REGEX ]]; then
+        :
+    else
+        error "version $version does not match the semver scheme 'X.Y.Z(-PRERELEASE)(+BUILD)'. See help for more information."
+    fi
+}
 
-git push --tags
+function command_version {
+    echo -e "Releaser: $RELEASER_VERSION"
+    exit 0
+}
+
+function command_help {
+    echo -e "\
+Usage:
+    releaser release
+    releaser --version
+    releaser --help
+
+Options:
+    -v, --version             Print the version of this tool.
+    -h, --help                Print this help message.
+Commands:
+    release                   Interactively release a new version.
+"
+
+    exit 0
+}
+
+function command_release {
+    print_last_version
+
+    read -p "Which version do you wish to release? " -r
+    local version=$REPLY
+
+    validate_version "$version"
+
+    echo -e "\n\
+CHECKLIST:
+    - Update read me
+    - Update change log
+    - Check integration statuses
+"
+
+    read -p "Do you wish to create the tag '$version' (y/n)? " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]
+    then
+        exit 1
+    fi
+
+    git tag -s "$version"
+
+    read -p "Do you wish to publish the tag '$version' (y/n)? " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]
+    then
+        exit 1
+    fi
+
+    git push --tags
+}
+
+case $1 in
+  --help|-h) command_help;;
+  --version|-v) command_version ;;
+  release) shift; command_release ;;
+  *) echo "Unknown arguments: $*"; command_help;;
+esac

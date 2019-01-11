@@ -62,6 +62,8 @@ Please see [SUPPORT](SUPPORT.md) for details.
 - [Máté Kocsis][link-author]
 - [All Contributors][link-contributors]
 
+Inspired by [Semver Tool](https://github.com/fsaintjacques/semver-tool).
+
 ## License
 
 The MIT License (MIT). Please see the [License File](LICENSE.md) for more information.
