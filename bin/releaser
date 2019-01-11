@@ -6,7 +6,7 @@ RELEASER_ROOT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 SEMVER_REGEX="^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(\\-[0-9A-Za-z-]+(\\.[0-9A-Za-z-]+)*)?(\\+[0-9A-Za-z-]+(\\.[0-9A-Za-z-]+)*)?$"
 
 function error {
-    echo -e "$1" >&2
+    echo -e "ERROR: $1" >&2
     exit 1
 }
 
@@ -20,6 +20,17 @@ function validate_version {
         :
     else
         error "version $version does not match the semver scheme 'X.Y.Z(-PRERELEASE)(+BUILD)'. See help for more information."
+    fi
+}
+
+function validate_change_log {
+    local today=`date +"%Y-%m-%d"`
+    local count=`grep -c -E "^##[[:space:]]*$1[[:space:]]*-[[:space:]]*$today$" ./CHANGELOG.md`
+
+    if (( "$count" > 0 )); then
+        echo "    - The CHANGELOG.md file has been validated successfully"
+    else
+        error "The CHANGELOG.md file has not been updated with the release date of $today for version $1."
     fi
 }
 
@@ -68,7 +79,12 @@ CHECKLIST:
         exit 1
     fi
 
+    echo -e "\nVALIDATING..."
+    validate_change_log "$version"
+
     git tag -s "$version"
+
+    echo -e "\nSUCCESSFULLY CREATED TAG: $version.\n";
 
     read -p "Do you wish to publish the tag '$version' (y/n)? " -n 1 -r
     echo

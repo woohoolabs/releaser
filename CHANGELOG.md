@@ -2,6 +2,8 @@
 
 ADDED:
 
+- Support for validating the release date in the change log
+
 CHANGED:
 
 REMOVED:
