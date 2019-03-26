@@ -38,7 +38,7 @@ by default.
 If you want to release a package, run the following script (if you use Composer to download Releaser):
 
 ```bash
-$ ./vendor/bin/releaser.sh
+$ ./vendor/bin/releaser
 ```
 
 ## Versioning
