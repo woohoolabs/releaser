@@ -42,7 +42,7 @@ function command_version {
 function command_help {
     echo -e "\
 Usage:
-    releaser release
+    releaser release [--no-signing]
     releaser --version
     releaser --help
 
@@ -82,7 +82,7 @@ CHECKLIST:
     echo -e "\nVALIDATING..."
     validate_change_log "$version"
 
-    git tag -s -m "Release version $version" "$version"
+    git tag ${signing:+ -s} -m "Release version $version" "$version"
 
     echo -e "\nSUCCESSFULLY CREATED TAG: $version.\n";
 
@@ -97,8 +97,17 @@ CHECKLIST:
 }
 
 case $1 in
-  --help|-h) command_help;;
-  --version|-v) command_version ;;
-  release) shift; command_release ;;
-  *) echo "Unknown arguments: $*"; command_help;;
+    --help|-h) command_help;;
+    --version|-v) command_version ;;
+    release)
+        shift
+        case "$1" in
+            "") signing="1";;
+            --no-signing) shift; signing="";;
+            *) echo "Unknown option: $*"; command_help;;
+        esac
+
+        command_release
+        ;;
+    *) echo "Unknown arguments: $*"; command_help;;
 esac
