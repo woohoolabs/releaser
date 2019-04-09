@@ -12,7 +12,7 @@ FIXED:
 
 ADDED:
 
-- The "--no-signing" option to disable signing of tags
+- The `--no-signing` option to disable signing of tags
 
 ## 1.1.0 - 2019-01-11
 
