@@ -1,4 +1,4 @@
-## 1.2.0 - unreleased
+## 1.3.0 - unreleased
 
 ADDED:
 
@@ -7,6 +7,12 @@ CHANGED:
 REMOVED:
 
 FIXED:
+
+## 1.2.0 - 2019-04-09
+
+ADDED:
+
+- The "--no-signing" option to disable signing of tags
 
 ## 1.1.0 - 2019-01-11
 
