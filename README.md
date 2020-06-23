@@ -1,7 +1,7 @@
 # Woohoo Labs. Releaser
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
+[![Software License][ico-license]](LICENSE)
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Gitter][ico-gitter]][link-gitter]
 
@@ -66,7 +66,7 @@ Inspired by [Semver Tool](https://github.com/fsaintjacques/semver-tool).
 
 ## License
 
-The MIT License (MIT). Please see the [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see the [License File](LICENSE) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/woohoolabs/releaser.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
